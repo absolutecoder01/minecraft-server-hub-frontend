@@ -18,14 +18,16 @@ export function Login() {
       setError(error.message);
     }
   }
-  // 4. Return z formularzem
   return (
+    <>
     <form onSubmit={handleSubmit}>
+      <label>username: </label>
       <input
         type="text"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
-      />
+        />
+      <label>password: </label>
       <input
         type="password"
         value={password}
@@ -34,5 +36,7 @@ export function Login() {
       <button type="submit">Login</button>
       {error && <p>{error}</p>}
     </form>
+      <p>Don't have account? <a href="/register">Register here.</a></p>
+    </>
   );
 }
