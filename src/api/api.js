@@ -1,10 +1,10 @@
 export function getCSRFToken() {
   const cookie = document.cookie;
-  const parts = cookie.split('; csrf_access_token=');
-  if (parts.length === 2) {
-    const second_part = parts[1];
-    const token = second_part.split(';')[0];
-    return token;
+
+  const match = cookie.match(/csrf_access_token=([^;]+)/);
+
+  if (match && match[1]) {
+    return match[1];
   }
   return null;
 }
