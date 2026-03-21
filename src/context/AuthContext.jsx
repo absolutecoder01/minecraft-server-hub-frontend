@@ -9,9 +9,10 @@ export function AuthProvider({ children }) {
 
   const login = async (username, password) => {
     try {
-      await authAPI.login(username, password);
-      localStorage.setItem("username", username);
-      setUser({ username });
+      const response = await authAPI.login(username, password);
+      localStorage.setItem("username", response.username);
+      localStorage.setItem('role', response.role);
+      setUser({ username: response.username, role: response.role });
     } catch (error) {
         setUser(null);
     }
@@ -20,6 +21,7 @@ export function AuthProvider({ children }) {
     try {
       await authAPI.logout();
       localStorage.removeItem("username");
+      localStorage.removeItem('role');
       setUser(null);
     } catch (error) {
       console.log("Error logging out: ", error);
@@ -30,9 +32,10 @@ export function AuthProvider({ children }) {
     const checkAuth = async () => {
       try {
           await serversAPI.getAll();
-          const username = localStorage.getItem("username");
+          const username = localStorage.getItem('username');
+          const role = localStorage.getItem('role');
           if (username) {
-            setUser({ username });
+            setUser({ username, role });
           }
       } catch (error) {
         setUser(null);

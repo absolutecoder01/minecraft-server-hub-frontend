@@ -57,6 +57,11 @@ export function Dashboard(){
       <p>Hello, {user?.username}!</p>
       <button onClick={handleLogout}>Logout</button>
       <button onClick={() => navigate('/add-server')}>Add Server</button>
+      {/* {user?.role === 'admin' && (*/}
+        <button onClick={() => navigate('/admin')}>
+          Admin Dashboard
+        </button>
+      {/* // )}*/}
       <h2>Servers:</h2>
       {servers.length === 0 ? (
         <p>No servers was found! Add some ;)</p>
