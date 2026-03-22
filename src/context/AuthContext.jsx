@@ -14,7 +14,7 @@ export function AuthProvider({ children }) {
       localStorage.setItem('role', response.role);
       setUser({ username: response.username, role: response.role });
     } catch (error) {
-        setUser(null);
+      setUser(null);
     }
   };
   const logout = async () => {
