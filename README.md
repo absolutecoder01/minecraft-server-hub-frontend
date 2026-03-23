@@ -13,13 +13,13 @@ Professional Minecraft server management panel with full JWT authentication, use
 ## Instalation
 
 ```bash
-# 1. Zainstaluj zależności
+# 1. Install dependencies
 npm install
 
-# 2. Zainstaluj Tailwind v4
+# 2. Install tailwind
 npm install -D tailwindcss @tailwindcss/postcss autoprefixer
 
-# 3. Uruchom dev server
+# 3. Run dev server
 npm run dev
 ```
 
