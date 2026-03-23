@@ -12,7 +12,8 @@ export function AuthProvider({ children }) {
       const response = await authAPI.login(username, password);
       localStorage.setItem("username", response.username);
       localStorage.setItem('role', response.role);
-      setUser({ username: response.username, role: response.role });
+      localStorage.setItem('id', response.id);
+      setUser({ username: response.username, role: response.role, id: response.id });
     } catch (error) {
       setUser(null);
     }
@@ -22,6 +23,7 @@ export function AuthProvider({ children }) {
       await authAPI.logout();
       localStorage.removeItem("username");
       localStorage.removeItem('role');
+        localStorage.removeItem('id');
       setUser(null);
     } catch (error) {
       console.log("Error logging out: ", error);
@@ -34,8 +36,9 @@ export function AuthProvider({ children }) {
           await serversAPI.getAll();
           const username = localStorage.getItem('username');
           const role = localStorage.getItem('role');
+          const id = localStorage.getItem('id');
           if (username) {
-            setUser({ username, role });
+            setUser({ username, role, id });
           }
       } catch (error) {
         setUser(null);
