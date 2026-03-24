@@ -36,6 +36,7 @@ export function RegisterNewUser() {
 
   return (
     <Layout>
+      <div className="max-w-xl mx-auto">
       {toast && (
         <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />
       )}
@@ -49,7 +50,7 @@ export function RegisterNewUser() {
           <h1 className="font-pixel text-3xl text-white mb-2 tracking-wider">
             NEXUS<span className="text-accent-emerald">HUB</span>
           </h1>
-          <p className="text-slate-400 text-sm">Join the network.</p>
+          <p className="text-slate-400 text-sm">Create new account.</p>
         </div>
 
         {/* Form */}
@@ -136,17 +137,8 @@ export function RegisterNewUser() {
             INITIALIZE ACCOUNT
           </button>
 
-          <p className="text-center text-sm text-slate-400 mt-6">
-            Returning?{' '}
-            <button
-              type="button"
-              onClick={() => navigate('/login')}
-              className="text-white hover:text-accent-purple font-medium transition-colors"
-            >
-              Login here
-            </button>
-          </p>
         </form>
+        </div>
       </div>
     </Layout>
   );

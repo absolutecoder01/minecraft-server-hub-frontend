@@ -101,7 +101,7 @@ export function AdminDashboard() {
           <div className="p-6 border-b border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
               <h3 className="text-lg font-semibold text-white">Platform Users</h3>
-              <p className="text-sm text-slate-400">Manage all registered accounts and their permissions.</p>
+              <p className="text-sm text-slate-400">See all registered accounts and their permissions.</p>
             </div>
             <div className="relative w-full md:w-64">
               <i className="ph ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"></i>
@@ -124,7 +124,6 @@ export function AdminDashboard() {
                   <th className="py-4 px-6">Servers</th>
                   <th className="py-4 px-6">Role</th>
                   <th className="py-4 px-6">Status</th>
-                  <th className="py-4 px-6 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800/50 text-sm">
