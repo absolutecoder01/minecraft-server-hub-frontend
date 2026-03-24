@@ -15,6 +15,7 @@ export function Layout({ children }) {
     { path: '/dashboard', label: 'Overview', icon: 'ph-squares-four' },
     { path: '/add-server', label: 'Add Server', icon: 'ph-plus-circle' },
     ...(user?.role === 'admin' ? [{ path: '/admin', label: 'Admin Panel', icon: 'ph-shield-star' }] : []),
+    ...(user?.role === 'admin' ? [{ path: '/register_new_user', label: 'Register New User', icon: 'ph-plus-circle' }] : []),
   ];
 
   return (

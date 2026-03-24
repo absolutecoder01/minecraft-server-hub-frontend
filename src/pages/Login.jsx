@@ -23,7 +23,8 @@ export function Login() {
       setTimeout(() => navigate('/dashboard'), 1000);
     } catch (error) {
       setError(error.message);
-      setToast({ message: error.message, type: 'error' });
+      // setToast({ message: error.message, type: 'error' });
+      showToast(error.message, 'error');
     }
   };
 
@@ -88,10 +89,6 @@ export function Login() {
               Forgot password?
             </a>
           </div>
-
-          {error && (
-            <p className="text-accent-purple text-sm text-center">{error}</p>
-          )}
 
           <button
             type="submit"

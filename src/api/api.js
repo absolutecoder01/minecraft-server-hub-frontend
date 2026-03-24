@@ -61,4 +61,5 @@ export const serversAPI = {
 
 export const adminAPI = {
   getStats: () => apiRequest('/api/admin/stats', { method: 'GET' }),
+  getUsers: () => apiRequest('/api/admin/users', { method: 'GET' }),
 };

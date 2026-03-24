@@ -8,22 +8,18 @@ export function AuthProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
 
   const login = async (username, password) => {
-    try {
-      const response = await authAPI.login(username, password);
-      localStorage.setItem("username", response.username);
-      localStorage.setItem('role', response.role);
-      localStorage.setItem('id', response.id);
-      setUser({ username: response.username, role: response.role, id: response.id });
-    } catch (error) {
-      setUser(null);
-    }
+    const response = await authAPI.login(username, password);
+    localStorage.setItem("username", response.username);
+    localStorage.setItem('role', response.role);
+    localStorage.setItem('id', response.id);
+    setUser({ username: response.username, role: response.role, id: response.id });
   };
   const logout = async () => {
     try {
       await authAPI.logout();
       localStorage.removeItem("username");
       localStorage.removeItem('role');
-        localStorage.removeItem('id');
+      localStorage.removeItem('id');
       setUser(null);
     } catch (error) {
       console.log("Error logging out: ", error);

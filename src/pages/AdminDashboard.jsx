@@ -3,14 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { adminAPI } from '../api/api';
 import { Layout } from '../components/Layout';
+import { StatChart } from '../components/StatChart';
 
 export function AdminDashboard() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [users, setUsers] = useState([]);
+  const [usersLoading, setUsersLoading] = useState(true);
 
   const showToast = (message, type = 'error') => {
       setToast({ message, type });
@@ -27,31 +29,35 @@ export function AdminDashboard() {
     const fetchStats = async () => {
       try {
         const data = await adminAPI.getStats();
+        const usersData = await adminAPI.getUsers();
         setStats(data);
+        setUsers(usersData);
         setLoading(false);
-      } catch (error) {
-        setError(error.message);
+        setUsersLoading(false);
+      } catch (e) {
+        showToast(e.message);
         setLoading(false);
+        setUsersLoading(false);
       }
     };
     fetchStats();
   }, []);
 
   if (loading) return <Layout><p className="text-white">Loading...</p></Layout>;
-  if (error) return <Layout><p className="text-accent-emerald">Error: {error}</p></Layout>;
 
-  // Mock users data
-  // TODO: users api
-  const users = [
-    { id: 1, username: 'NotchMaker', email: 'notch@craft.net', servers: '3 Active', role: 'admin', status: 'online', avatar: 'N' },
-    { id: 2, username: 'Jeb_', email: 'jeb@mojang.org', servers: '1 Offline', role: 'user', status: 'offline', avatar: 'J' },
-    { id: 3, username: 'GrieferBoy99', email: 'troll@darknet.io', servers: '0 Servers', role: 'user', status: 'suspended', avatar: 'G' },
-  ];
+  if (usersLoading) {
+    return <p className="text-white">Loading users...</p>;
+  }
+
+  if (!users || users.length === 0) {
+    return <p className="text-slate-400">No users found</p>;
+  }
 
   const filteredUsers = users.filter(u =>
     u.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
     u.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
 
   return (
     <Layout>
@@ -133,7 +139,7 @@ export function AdminDashboard() {
                             ? 'bg-red-900/30 border border-red-500/30 text-red-400'
                             : 'bg-slate-800 border border-slate-700 text-slate-400'
                         }`}>
-                          {user.avatar}
+                          {user.username[0].toUpperCase()}
                         </div>
                         <div>
                           <p className={`font-medium ${user.status === 'suspended' ? 'text-white line-through' : 'text-white'}`}>
@@ -143,7 +149,7 @@ export function AdminDashboard() {
                         </div>
                       </div>
                     </td>
-                    <td className="py-4 px-6 text-slate-300">{user.servers}</td>
+                    <td className="py-4 px-6 text-slate-300">{user.servers_count + " Active"}</td>
                     <td className="py-4 px-6">
                       {user.role === 'admin' ? (
                         <span className="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-md bg-accent-purple/10 text-accent-purple text-xs font-medium border border-accent-purple/20">
@@ -184,19 +190,16 @@ export function AdminDashboard() {
 
         {/* Stats Breakdown */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-          <div className="bg-card backdrop-blur-md border border-white/5 rounded-3xl p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Users by Role</h3>
-            <pre className="text-slate-400 text-sm overflow-x-auto">
-              {JSON.stringify(stats?.users_by_role, null, 2)}
-            </pre>
-          </div>
-
-          <div className="bg-card backdrop-blur-md border border-white/5 rounded-3xl p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Servers by Game Mode</h3>
-            <pre className="text-slate-400 text-sm overflow-x-auto">
-              {JSON.stringify(stats?.server_by_game_mode, null, 2)}
-            </pre>
-          </div>
+          <StatChart
+            type="doughnut"
+            data={stats?.users_by_role || {}}
+            title="Users by Role"
+          />
+          <StatChart
+            type="bar"
+            data={stats?.server_by_game_mode || {}}
+            title="Servers by Game Mode"
+          />
         </div>
       </div>
     </Layout>
