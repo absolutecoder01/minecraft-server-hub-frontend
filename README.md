@@ -5,9 +5,9 @@ Professional Minecraft server management panel with full JWT authentication, use
 ## Tech Stack
 
 <div>
-  <img src="https://img.shields.io/badge/-React_18-61DAFB?style=for-the-badge&logo=react&logoColor=white" />
+  <img src="https://img.shields.io/badge/-React-61DAFB?style=for-the-badge&logo=react&logoColor=white" />
   <img src="https://img.shields.io/badge/-Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" />
-  <img src="https://img.shields.io/badge/-Tailwind_CSS_v4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" />
+  <img src="https://img.shields.io/badge/-TailwindCSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" />
   <img src="https://img.shields.io/badge/-React_Router_DOM-CA4245?style=for-the-badge&logo=react-router&logoColor=white" />
   <img src="https://img.shields.io/badge/-Phosphor_Icons-356456?style=for-the-badge&logo=phosphor-icons&logoColor=white" />
   <img src="https://img.shields.io/badge/-Context_API-61DAFB?style=for-the-badge&logo=react&logoColor=white" />
@@ -36,7 +36,7 @@ npm run dev
 
 ## Variables
 
-- make sure you have backend set up on 
+make sure you have backend set up on 
 ```bash
 http://localhost:5000
 ```
